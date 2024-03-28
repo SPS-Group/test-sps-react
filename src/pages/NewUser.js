@@ -1,13 +1,16 @@
 import React, { useState } from 'react';
-import servicesSession from '../services/Session';
+import userServices from '../services/UserService';
 import { useNavigate } from "react-router-dom";
-import useStore from "../store";
 
-const SignIn = () => {
+function NewUser() {
+  const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const navigate = useNavigate();
-  const { setAuth } = useStore();
+
+  const handleNameChange = (event) => {
+    setName(event.target.value);
+  };
 
   const handleEmailChange = (event) => {
     setEmail(event.target.value);
@@ -17,17 +20,17 @@ const SignIn = () => {
     setPassword(event.target.value);
   };
 
-  const handleLogin = async (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
     try {
-      const response = await servicesSession.loginUser({ 
+      await userServices.create({
+        name,
         email,
         password
       });
-      setAuth(true);
-      navigate("/home");
+      navigate("/users");
     } catch (error) {
-      console.error('Erro ao fazer login:', error);
+      console.error('Erro ao criar usuario', error);
       // toast component
     }
   };
@@ -35,7 +38,16 @@ const SignIn = () => {
   return (
     <div>
       <h2>Sign In</h2>
-      <form onSubmit={handleLogin}>
+      <form onSubmit={handleSubmit}>
+      <div>
+          <label htmlFor="name">Nome:</label>
+          <input
+            id="name"
+            value={name}
+            onChange={handleNameChange}
+            required
+          />
+        </div>
         <div>
           <label htmlFor="email">Email:</label>
           <input
@@ -56,10 +68,10 @@ const SignIn = () => {
             required
           />
         </div>
-        <button type="submit">Sign In</button>
+        <button type="submit">criar</button>
       </form>
     </div>
   );
-};
+}
 
-export default SignIn;
+export default NewUser;
