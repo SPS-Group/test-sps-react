@@ -9,14 +9,13 @@ const UserService = {
     throw new Error("Not implemented");
   },
   async create(data) {
-    throw new Error("Not implemented");
+    await api.post(`/users`, data);
   },
   async delete(id) {
-    throw new Error("Not implemented");
+    await api.delete(`/users/${id}`);
   },
   async update(id, data) {
-    const users = await api.put(`/users/${id}`, data);
-    return users;
+    await api.put(`/users/${id}`, data);
   }
 }
 

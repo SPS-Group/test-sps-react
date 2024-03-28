@@ -19,8 +19,12 @@ function Home() {
       <h1>SPS REACT TEST</h1>
 
       <a href="/users">Usuários</a>
-      <button onClick={handleLogout}>Logout</button>
-      <a href="/users">Usuários</a>
+
+      <br />
+
+      <a href="/add-user">Criar Usuários</a>
+      <br />
+      <br />
       <button onClick={handleLogout}>Logout</button>
     </div>
   );

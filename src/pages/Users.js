@@ -39,6 +39,10 @@ const Users = () => {
     setSelectedUser(user);
   };
 
+  const handleDeleteUser = (user) => {
+    userService.delete(user.id)
+  };
+
   const handleSaveUser = (id, updatedUser) => {
     userService.update(id, updatedUser)
     setSelectedUser(null); // Fechar a modal após salvar
@@ -54,6 +58,7 @@ const Users = () => {
               <div>{user.name}</div>
               <div>{user.email}</div>
               <button onClick={() => handleEditUser(user)}>Edit</button>
+              <button onClick={() => handleDeleteUser(user)}>Delete</button>
             </li>
           )))}
       </ul>
